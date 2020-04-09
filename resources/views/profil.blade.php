@@ -2,16 +2,22 @@
 
 @section('content')
 <div class="container">
+    @if($data->status == 0)
+    <div class="alert alert-danger" role="alert">
+        I'm sorry but you're not online!
+    </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-2">
             <div class="card">
-                <img src="{{ $res[0]['picture']['large'] }}" alt="{{ $res[0]['name']['first'] }}" class="">
-                <div class="card-body">
-                    {{ $res[0]['name']['first'] }} {{ $res[0]['name']['last'] }} 
-                </div>
+                <img src="{{ $data->picture }}" alt="{{ $data->firstname }}" class="">
             </div>  
             <br>
-            <a href="{{ route('prof') }}" class="btn btn-success"><i class="fa fa-refresh fa-spin"></i>&nbsp;Randomize</a>
+            @if($data->status == 0)
+            <a href="" class="btn btn-danger btn-block disabled"><i class="fa fa-warning"></i>&nbsp;Offline</a>
+            @else
+            <a href="{{ route('prof') }}" class="btn btn-success btn-block"><i class="fa fa-refresh fa-spin"></i>&nbsp;Randomize</a>
+            @endif
         </div>
         <div class="col-md-8">
             <fieldset>
@@ -21,45 +27,39 @@
                     <tr>
                         <td>Name</td>
                         <td width="10px">:</td>
-                        <td>{{ $res[0]['name']['title'] }} {{ $res[0]['name']['first'] }} {{ $res[0]['name']['last'] }}</td>
+                        <td>{{ $data->titlename }} {{ $data->firstname }} {{ $data->lastname }}</td>
                     </tr>
                     <tr>
                         <td>Email</td>
                         <td>:</td>
-                        <td>{{ $res[0]['email'] }}</td>
+                        <td>{{ $data->email }}</td>
                     </tr>
                     <tr>
-                        <?php
-                        $exp = explode('T', $res[0]['dob']['date']);
-                        $exp2 = explode('-', $exp[0]);
-                        $dob = $exp2[2].'/'.$exp2[1].'/'.$exp2[0];
-                        ?>
                         <td>Date of Birth</td>
                         <td>:</td>
-                        <td>{{ $dob }}</td>
+                        <td>{{ $data->dob }}</td>
                     </tr>
                     <tr>
                         <td>Phone</td>
                         <td>:</td>
-                        <td>{{ $res[0]['phone'] }}</td>
+                        <td>{{ $data->phone }}</td>
                     </tr>
                     <tr>
                         <td>Cell</td>
                         <td>:</td>
-                        <td>{{ $res[0]['cell'] }}</td>
+                        <td>{{ $data->cell }}</td>
                     </tr>
                     <tr>
                         <td>Address</td>
                         <td>:</td>
                         <td>
-                            {{ $res[0]['location']['street']['number'] }} {{ $res[0]['location']['street']['name'] }}<br>
-                            {{ $res[0]['location']['city']}} <br>
-                            {{ $res[0]['location']['state'] }}, {{ $res[0]['location']['country'] }} {{ $res[0]['location']['postcode'] }}
+                            {{ $data->stnumber }} {{ $data->stname }}<br>
+                            {{ $data->stcity }} <br>
+                            {{ $data->ststate }}, {{ $data->stcountry }} {{ $data->stpostcode }}
                         </td>
                     </tr>
                 </table>
             </fieldset>
-            
         </div>
     </div>
 </div>
